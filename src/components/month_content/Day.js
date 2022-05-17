@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 
@@ -20,11 +20,11 @@ const Week = styled.p`
 `;
 
 const Date = styled.p`
-  line-height: 20px;
-  width: 20px;
-  height: 20px;
+  line-height: 18px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  margin-top: 5px;
+  margin: 3px 0px 2px 0px;
   cursor: pointer;
   &:hover {
     background-color: #e8eaed;
@@ -42,8 +42,8 @@ const Date = styled.p`
     props.firstDate === '1' &&
     `
         line-height: 20px;
-        width: 40px;
-        height: 20px;
+        width: 30px;
+        height: 18px;
         border-radius: 45%;
     `}
     ${(props) => props.month !== dayjs().format('M') && 'color:#70757a;'}
@@ -64,6 +64,7 @@ function Day({ day, rowIdx }) {
     Fri: '五',
     Sat: '六',
   };
+
   return (
     <Div>
       <Header>

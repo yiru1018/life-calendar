@@ -19,4 +19,23 @@ module.exports = {
     'import/extensions': 'off',
     'react/prop-types': 0,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
+  // 'import/no-extraneous-dependencies': {
+  //   root: true,
+  //   indent: [
+  //     'error',
+  //     {
+  //       devDependencies: false,
+  //       optionalDependencies: false,
+  //       peerDependencies: false,
+  //     },
+  //   ],
+  // },
 };

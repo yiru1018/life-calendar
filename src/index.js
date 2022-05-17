@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import ContextWrapper from './context/ContextWrapper';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(
+  <ContextWrapper>
+    <App />
+  </ContextWrapper>,
+  document.querySelector('#root')
+);

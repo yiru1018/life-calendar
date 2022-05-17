@@ -1,10 +1,31 @@
-import GlobalContext from './GlobalContext';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import GlobalContext from './GlobalContext';
 
-function ContextWrapper() {
-    const [monthIndex, setMonthIndex] = useState(dayjs().month());
-    return <GlobalContext.Provider>{props.children}</GlobalContext.Provider>;
+function ContextWrapper(props) {
+  const [monthIndex, setMonthIndex] = useState(dayjs().month());
+  const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
+  const [daySelected, setDaySelected] = useState(null);
+
+  // click date on small calendar change big calendar to that month
+  useEffect(() => {
+    if (smallCalendarMonth !== null) setMonthIndex(smallCalendarMonth);
+  }, [smallCalendarMonth]);
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        monthIndex,
+        setMonthIndex,
+        smallCalendarMonth,
+        setSmallCalendarMonth,
+        daySelected,
+        setDaySelected,
+      }}
+    >
+      {props.children}
+    </GlobalContext.Provider>
+  );
 }
 
 export default ContextWrapper;

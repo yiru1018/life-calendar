@@ -6,6 +6,7 @@ import Sidebar from '../sidebar/Sidebar';
 const Div = styled.div`
   display: flex;
   flex-grow: 1;
+  height: 100%;
 `;
 
 function MonthContent() {
