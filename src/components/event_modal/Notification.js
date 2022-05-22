@@ -9,19 +9,19 @@ const Div = styled.div`
   align-items: center;
   margin: 20px 0px 20px 0px;
   color: #70757a;
-  font-size: 10px;
+  font-size: 14px;
 `;
 
 const BellImg = styled.img`
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 
 const CreateAlertBtn = styled.button`
   color: #70757a;
   background-color: #fff;
-  font-size: 10px;
+  font-size: 14px;
   border-radius: 3px;
   padding: 4px 3px;
   cursor: pointer;
@@ -33,11 +33,11 @@ const CreateAlertBtn = styled.button`
 const CloseImg = styled.img`
   display: none;
   position: absolute;
-  right: 0px;
-  width: 18px;
-  height: 18px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 5px;
   cursor: pointer;
   &:hover {
     background-color: #dadce0;
@@ -62,21 +62,21 @@ const InputNumber = styled.input.attrs({
 })`
   background-color: #e8eaed;
   text-align: center;
-  font-size: 10px;
-  height: 20px;
-  width: 40px;
+  font-size: 14px;
+  height: 25px;
+  width: 48px;
 `;
 
 const TimeUnitSelector = styled.select`
   background-color: #e8eaed;
-  width: 35px;
-  height: 20px;
+  width: 48px;
+  height: 25px;
   background-image: url(${downImg});
   background-repeat: no-repeat;
   background-position: right 3px top 50%, 0 0;
   background-size: 5px 3px, 100%;
   color: #70757a;
-  font-size: 10px;
+  font-size: 14px;
   -moz-appearance: none; /* Firefox */
   -webkit-appearance: none; /* Safari and Chrome */
   appearance: none;
@@ -88,7 +88,7 @@ const TimeUnitSelector = styled.select`
   }
 `;
 
-function Alert() {
+function Notification() {
   const [createAlert, setCreateAlert] = useState(false);
   return (
     <Div>
@@ -115,4 +115,4 @@ function Alert() {
   );
 }
 
-export default Alert;
+export default Notification;

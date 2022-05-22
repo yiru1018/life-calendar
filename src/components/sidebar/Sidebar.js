@@ -4,7 +4,7 @@ import CreateEvent from './CreateEvent';
 import SmallCalender from './SmallCalender';
 
 const Div = styled.div`
-  flex: 0 0 180px;
+  flex: 0 0 256px;
 `;
 
 function Sidebar() {

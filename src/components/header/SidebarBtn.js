@@ -7,8 +7,8 @@ const Div = styled.div`
 `;
 
 const Button = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
@@ -19,8 +19,8 @@ const Button = styled.button`
 `;
 
 const Img = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 24px;
+  height: 24px;
   position: absolute;
   top: 50%;
   left: 50%;

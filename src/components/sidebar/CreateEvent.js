@@ -5,19 +5,19 @@ import downBtnImg from '../../assets/images/down.png';
 import GlobalContext from '../../context/GlobalContext';
 
 const Button = styled.button`
-  width: 90px;
-  height: 35px;
+  width: 130px;
+  height: 48px;
   background-color: #fff;
   border: 1px solid #e8eaed;
   border-radius: 50px;
   color: #3c4043;
-  font-size: 12px;
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin: 15px 0px 10px 5px;
-  box-shadow: 0px 0.8px 0px #dadce0;
+  padding: 12px;
+  margin: 15px 0px 10px 10px;
+  box-shadow: 1px 2px 0px #dadce0;
   cursor: pointer;
   transform: perspective(1px);
   transition-duration: 0.3s;
@@ -28,12 +28,12 @@ const Button = styled.button`
   }
 `;
 const CreateImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 36px;
+  height: 36px;
 `;
 const DownImg = styled.img`
-  width: 5px;
-  height: 3px;
+  width: 7px;
+  height: 5px;
   margin-top: 3px;
 `;
 function CreateEvent() {

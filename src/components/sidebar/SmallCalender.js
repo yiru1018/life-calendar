@@ -17,18 +17,19 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0px 5px;
-  font-size: 10px;
+  font-size: 14px;
 `;
 
 const Button = styled.button`
-  width: 15px;
-  height: 15px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
+  margin-right: 8px;
   cursor: pointer;
   &.prev {
-    margin-right: 5px;
+    margin-right: 10px;
   }
   &:hover {
     background-color: #e8eaed;
@@ -36,8 +37,8 @@ const Button = styled.button`
 `;
 
 const Img = styled.img`
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,20 +48,20 @@ const Img = styled.img`
 const DateTable = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  font-size: 8px;
-  margin-top: 5px;
+  font-size: 10px;
+  margin-top: 16px;
 `;
 
 const Week = styled.p`
   color: #70757a;
-  padding-left: 5px;
+  padding-left: 7px;
 `;
 
 const Day = styled.p`
   text-align: center;
-  line-height: 16px;
-  width: 16px;
-  height: 16px;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   margin-top: 5px;
   cursor: pointer;

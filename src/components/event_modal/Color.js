@@ -20,14 +20,13 @@ const Down = styled.img`
 
 const ColorDropper = styled.img`
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 
 const Check = styled.img`
-  width: 10px;
-  height: 10px;
-  /* z-index: 1; */
+  width: 16px;
+  height: 16px;
 `;
 
 const Palette = styled.div`
@@ -36,36 +35,33 @@ const Palette = styled.div`
   left: 30px;
   position: absolute;
   z-index: 1;
-  padding: 8px;
+  padding: 10px;
   display: grid;
-  grid-gap: 4px;
+  grid-gap: 5px;
   grid-template-columns: repeat(2, 1fr);
   box-shadow: 0px 5px 8px 2px #cccecf;
-  height: 120px;
+  height: 150px;
 `;
 
 const SelectColorBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 25px;
+  width: 60px;
+  height: 36px;
   cursor: pointer;
   &:hover {
     background-color: #e8eaed;
   }
   position: relative;
-  /* &:hover ~ ${Palette} {
-    max-height: 150px;
-  } */
 `;
 
 const ColorTag = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
   cursor: pointer;
@@ -75,7 +71,7 @@ const ColorTag = styled.button`
   }
 `;
 
-function Color() {
+function Color({ divColor, setDivColor }) {
   const colorList = [
     'rgb(213, 0, 0)',
     'rgb(230, 124, 115)',
@@ -90,7 +86,6 @@ function Color() {
     'rgb(97, 97, 97)',
   ];
   const [showPalette, setShowPalette] = useState(false);
-  const [divColor, setDivColor] = useState('rgb(121, 134, 203)');
   const paletteRef = useRef(null);
 
   useEffect(() => {

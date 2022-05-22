@@ -11,19 +11,19 @@ const Div = styled.div`
 
 const Img = styled.img`
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 
 const Dates = styled.div`
-  width: 220px;
-  height: 40px;
+  width: 280px;
+  height: 48px;
   border-radius: 3px;
   padding: 5px;
   color: #3c4043;
   display: flex;
   flex-direction: column;
-  font-size: 10px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #e8eaed;
@@ -43,18 +43,18 @@ const Date = styled.div`
 `;
 
 const NoRepeat = styled.div`
-  font-size: 8px;
+  font-size: 12px;
   color: #70757a;
 `;
 
 const AddTimeBtn = styled.button`
-  font-size: 8px;
+  font-size: 12px;
   color: #3c4043;
   background-color: white;
   border: 1px solid #e8eaed;
   border-radius: 5px;
-  width: 50px;
-  height: 20px;
+  width: 65px;
+  height: 26px;
   margin-left: 10px;
   cursor: pointer;
   &:hover {

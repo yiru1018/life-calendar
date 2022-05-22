@@ -8,11 +8,10 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  flex: 0 0 48px;
+  flex: 0 0 64px;
   /* height: 48px; */
-  padding-left: 8px;
-  padding-right: 8px;
-  border-bottom: 0.6px solid #e8eaed;
+  padding: 8px;
+  border-bottom: 1px solid #e8eaed;
   position: relative;
 `;
 

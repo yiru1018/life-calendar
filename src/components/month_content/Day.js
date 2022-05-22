@@ -18,9 +18,11 @@ const Header = styled.header`
 
 const Week = styled.p`
   color: #70757a;
+  font-size: 11px;
 `;
 
 const SingleDay = styled.p`
+  font-size: 12px;
   line-height: 18px;
   width: 18px;
   height: 18px;
@@ -43,7 +45,7 @@ const SingleDay = styled.p`
     props.firstDate === '1' &&
     `
         line-height: 20px;
-        width: 30px;
+        width: 45px;
         height: 18px;
         border-radius: 45%;
     `}

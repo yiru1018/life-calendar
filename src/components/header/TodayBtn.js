@@ -8,13 +8,13 @@ const Div = styled.div`
 `;
 
 const Today = styled.button`
-  font-size: 10px;
+  font-size: 14px;
   color: #3c4043;
   background-color: white;
   border: 1px solid #e8eaed;
   border-radius: 5px;
-  width: 40px;
-  height: 25px;
+  width: 52px;
+  height: 34px;
   cursor: pointer;
   &:hover {
     background-color: #e8eaed;

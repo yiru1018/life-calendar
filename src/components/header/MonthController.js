@@ -13,8 +13,8 @@ const Div = styled.div`
 `;
 
 const Button = styled.button`
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
@@ -28,8 +28,8 @@ const Button = styled.button`
 `;
 
 const Img = styled.img`
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,7 +38,7 @@ const Img = styled.img`
 
 const P = styled.p`
   margin-left: 15px;
-  font-size: 14px;
+  font-size: 22px;
 `;
 
 function MonthController() {

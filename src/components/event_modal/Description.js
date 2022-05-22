@@ -10,8 +10,8 @@ const Div = styled.div`
 
 const Img = styled.img`
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 
 const Underline = styled.span`
@@ -26,21 +26,27 @@ const Underline = styled.span`
 `;
 
 const Input = styled.input`
-  width: 200px;
+  width: 280px;
   border-bottom: 1px solid #ccc;
   color: #555;
-  font-size: 10px;
+  font-size: 14px;
   /* margin: 10px 40px; */
   /* &:focus ~ ${Underline} {
     transform: scale(1);
   } */
 `;
 
-function Description() {
+function Description({ description, setDescription }) {
   return (
     <Div>
       <Img src={DescImg} />
-      <Input type="text" name="description" placeholder="新增說明" />
+      <Input
+        type="text"
+        name="description"
+        placeholder="新增說明"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
     </Div>
   );
 }

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import trashImg from '../../assets/images/trash.png';
 
 const Button = styled.button`
-  width: 25px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
@@ -12,11 +12,12 @@ const Button = styled.button`
   &:hover {
     background-color: #e8eaed;
   }
+  margin: 0px 5px;
 `;
 
 const Img = styled.img`
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   position: absolute;
   top: 50%;
   left: 50%;

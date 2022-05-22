@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import closeImg from '../../assets/images/close.png';
 import SetTime from './SetTime';
-import Alert from './Alert';
+import Notification from './Notification';
 import Description from './Description';
 import Color from './Color';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
@@ -11,17 +11,17 @@ import GlobalContext from '../../context/GlobalContext';
 const Underline = styled.span`
   background-color: #9649c9;
   position: absolute;
-  width: 250px;
+  width: 364px;
   height: 1.5px;
-  top: 62px;
+  top: 74px;
   left: 40px;
   transition: all 0.2s linear;
   transform: scale(0, 1);
 `;
 
 const Div = styled.div`
-  width: 300px;
-  height: 340px;
+  width: 448px;
+  height: 400px;
   box-shadow: 0px 5px 8px 2px #cccecf;
   border-radius: 5px;
   display: flex;
@@ -40,31 +40,32 @@ const ExceptTitle = styled.div`
 
 const ClosingTag = styled.div`
   width: 100%;
-  height: 22px;
+  height: 36px;
   background-color: #e8eaed;
   border-radius: 5px 5px 0px 0px;
   margin-top: 1.5px;
   position: relative;
   display: flex;
-  align-items: end;
+  align-items: center;
 `;
 
 const Img = styled.img`
   margin: 0px 5px 2px auto;
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 5px;
   cursor: pointer;
   &:hover {
     background-color: #dadce0;
   }
 `;
 
-const Input = styled.input`
-  width: 250px;
+const TitleInput = styled.input`
+  width: 364px;
   border-bottom: 1px solid #ccc;
   color: #555;
+  font-size: 22px;
   margin: 20px 40px 10px 40px;
   &:focus ~ ${Underline} {
     transform: scale(1);
@@ -78,17 +79,21 @@ const SaveDiv = styled.div`
 `;
 
 const Button = styled.button`
-  width: 50px;
-  height: 25px;
+  width: 76px;
+  height: 36px;
   color: #fff;
-  font-size: 10px;
+  font-size: 14px;
   background-color: #9649c9;
   border-radius: 3px;
 `;
 
 function EventModal() {
   const [title, setTitle] = useState('');
+  const [startDay, setStartDay] = useState('');
+  const [endDay, setEndDay] = useState('');
+  const [notifyTime, setNotifyTime] = useState('');
   const [description, setDescription] = useState('');
+  const [divColor, setDivColor] = useState('rgb(121, 134, 203)');
 
   const { setShowEventModal } = useContext(GlobalContext);
 
@@ -98,7 +103,7 @@ function EventModal() {
       <ClosingTag onClick={() => setShowEventModal(false)}>
         <Img src={closeImg} />
       </ClosingTag>
-      <Input
+      <TitleInput
         placeholder="新增標題"
         type="text"
         name="title"
@@ -107,13 +112,18 @@ function EventModal() {
       />
       <Underline />
       <ExceptTitle>
-        <SetTime />
-        <Alert />
-        <Description
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+        <SetTime
+          // startDay={startDay}
+          setStartDay={setStartDay}
+          // endDay={endDay}
+          setEndDay={setEndDay}
         />
-        <Color />
+        <Notification setNotifyTime={setNotifyTime} />
+        <Description
+          description={description}
+          setDescription={setDescription}
+        />
+        <Color divColor={divColor} setDivColor={setDivColor} />
         <SaveDiv>
           <Button>儲存</Button>
         </SaveDiv>

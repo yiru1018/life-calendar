@@ -5,8 +5,8 @@ import avatarImg from '../../assets/images/avatar.png';
 import { auth } from '../../../firebase-config';
 
 const Button = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
