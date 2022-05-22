@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import createBtnImg from '../../assets/images/create-btn.png';
 import downBtnImg from '../../assets/images/down.png';
+import GlobalContext from '../../context/GlobalContext';
 
 const Button = styled.button`
   width: 90px;
@@ -36,9 +37,15 @@ const DownImg = styled.img`
   margin-top: 3px;
 `;
 function CreateEvent() {
+  const { setShowEventModal, setFromCreateBtn } = useContext(GlobalContext);
   return (
     <div>
-      <Button>
+      <Button
+        onClick={() => {
+          setShowEventModal(true);
+          setFromCreateBtn(true);
+        }}
+      >
         <CreateImg src={createBtnImg} />
         <p>建立</p>
         <DownImg src={downBtnImg} />

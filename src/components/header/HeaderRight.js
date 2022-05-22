@@ -16,7 +16,7 @@ function HeaderRight() {
     <Div>
       <SearchEvent />
       <Trash />
-      <Dropdownmenu />
+      {/* <Dropdownmenu /> */}
       <Avatar />
     </Div>
   );

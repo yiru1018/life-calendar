@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import GlobalContext from '../../context/GlobalContext';
 
 const Div = styled.div`
   border: 0.6px solid #e8eaed;
@@ -19,7 +20,7 @@ const Week = styled.p`
   color: #70757a;
 `;
 
-const Date = styled.p`
+const SingleDay = styled.p`
   line-height: 18px;
   width: 18px;
   height: 18px;
@@ -46,14 +47,17 @@ const Date = styled.p`
         height: 18px;
         border-radius: 45%;
     `}
-    ${(props) => props.month !== dayjs().format('M') && 'color:#70757a;'}
+    ${(props) => props.month !== props.bigMonth && 'color:#70757a;'}
 `;
 
+const EventDiv = styled.div``;
+
 function Day({ day, rowIdx }) {
+  const { monthIndex, setBigCalendarSlcDay, setShowEventModal } =
+    useContext(GlobalContext);
+
   const showDate =
-    day.format('D') === '1'
-      ? `${day.format('M')}月${day.format('D')}日`
-      : day.format('D');
+    day.format('D') === '1' ? day.format('M[月]D[日]') : day.format('D');
 
   const week = {
     Sun: '日',
@@ -66,18 +70,25 @@ function Day({ day, rowIdx }) {
   };
 
   return (
-    <Div>
+    <Div
+      onClick={() => {
+        setBigCalendarSlcDay(day);
+        setShowEventModal(true);
+      }}
+    >
       <Header>
         {rowIdx === 0 && <Week>{`週${week[day.format('ddd')]}`}</Week>}
-        <Date
+        <SingleDay
           currentdate={day.format('D-M-YY')}
           firstDate={day.format('D')}
           month={day.format('M')}
+          bigMonth={dayjs(new Date(dayjs().year(), monthIndex)).format('M')}
           rowIdx={rowIdx}
         >
           {showDate}
-        </Date>
+        </SingleDay>
       </Header>
+      <EventDiv />
     </Div>
   );
 }

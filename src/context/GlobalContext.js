@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 
 const GlobalContext = createContext({
   monthIdex: 0,
@@ -7,6 +7,12 @@ const GlobalContext = createContext({
   setSmallCalendarMonth: (index) => {},
   daySelected: null,
   setDaySelected: (day) => {},
+  showEventModal: false,
+  setShowEventModal: () => {},
+  bigCalendarSlcDay: null,
+  setBigCalendarSlcDay: () => {},
+  fromCreateBtn: null,
+  setFromCreateBtn: () => {},
 });
 
 export default GlobalContext;

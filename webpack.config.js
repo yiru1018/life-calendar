@@ -29,6 +29,10 @@ module.exports = {
         },
       },
       { test: /\.png$/, use: 'url-loader?mimetype=image/png' },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
 };

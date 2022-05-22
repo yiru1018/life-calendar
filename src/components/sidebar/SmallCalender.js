@@ -71,16 +71,16 @@ const Day = styled.p`
     background-color: #dac6f7;
     color: #7c3da6;
   }
-  ${(props) =>
-    props.currentdate === dayjs().format('D-M-YY') &&
-    `
-        color:white;
-        background-color:#9649c9;
-        &:hover {
-        background-color: #7c3da6;
+  &.now {
+    color: white;
+    background-color: #9649c9;
+    &:hover {
+      background-color: #7c3da6;
     }
-        `}
-  ${(props) => props.month !== dayjs().format('M') && `color:#70757a;`}
+  }
+  &.notThisMonth {
+    color: #70757a;
+  }
 `;
 
 function SmallCalender() {
@@ -109,10 +109,18 @@ function SmallCalender() {
     setCurrentMonthIdx(currentMonthIdx + 1);
   };
 
-  const getActiveClassName = (day) => {
-    const currDay = day.format('D-M-YYYY');
+  const getClassName = (day) => {
+    const format = 'D-M-YYYY';
+    const nowDay = dayjs().format(format);
+    const currDay = day.format(format);
     const slcDay = daySelected && daySelected.format('D-M-YYYY');
-    if (currDay === slcDay) return 'active';
+    if (
+      dayjs(new Date(dayjs().year(), currentMonthIdx)).format('M') !==
+      day.format('M')
+    )
+      return 'notThisMonth';
+    if (nowDay === currDay) return 'now';
+    if (slcDay === currDay) return 'active';
     return '';
   };
 
@@ -142,13 +150,11 @@ function SmallCalender() {
             {row.map((day) => (
               <Day
                 key={v4()}
-                currentdate={day.format('D-M-YY')}
-                month={day.format('M')}
                 onClick={() => {
                   setSmallCalendarMonth(currentMonthIdx);
                   setDaySelected(day);
                 }}
-                className={getActiveClassName(day)}
+                className={getClassName(day)}
               >
                 {day.format('D')}
               </Day>
