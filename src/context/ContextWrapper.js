@@ -9,6 +9,8 @@ function ContextWrapper(props) {
   const [showEventModal, setShowEventModal] = useState(false);
   const [bigCalendarSlcDay, setBigCalendarSlcDay] = useState(dayjs());
   const [fromCreateBtn, setFromCreateBtn] = useState(false);
+  const [smallCalendarDayClassName, setSmallCalendarDayClassName] =
+    useState('');
 
   // click date on small calendar change big calendar to that month
   useEffect(() => {

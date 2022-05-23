@@ -13,6 +13,8 @@ const GlobalContext = createContext({
   setBigCalendarSlcDay: () => {},
   fromCreateBtn: null,
   setFromCreateBtn: () => {},
+  smallCalendarDayClassName: null,
+  setSmallCalendarDayClassName: () => {},
 });
 
 export default GlobalContext;

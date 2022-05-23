@@ -13,9 +13,9 @@ const Underline = styled.span`
   position: absolute;
   width: 364px;
   height: 1.5px;
-  top: 74px;
+  top: 89px;
   left: 40px;
-  transition: all 0.2s linear;
+  transition: all 0.3s linear;
   transform: scale(0, 1);
 `;
 
@@ -104,6 +104,7 @@ function EventModal() {
         <Img src={closeImg} />
       </ClosingTag>
       <TitleInput
+        autoFocus
         placeholder="新增標題"
         type="text"
         name="title"

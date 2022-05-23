@@ -23,9 +23,9 @@ const Week = styled.p`
 
 const SingleDay = styled.p`
   font-size: 12px;
-  line-height: 18px;
-  width: 18px;
-  height: 18px;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   margin: 3px 0px 2px 0px;
   cursor: pointer;
@@ -55,8 +55,12 @@ const SingleDay = styled.p`
 const EventDiv = styled.div``;
 
 function Day({ day, rowIdx }) {
-  const { monthIndex, setBigCalendarSlcDay, setShowEventModal } =
-    useContext(GlobalContext);
+  const {
+    monthIndex,
+    setBigCalendarSlcDay,
+    setShowEventModal,
+    setFromCreateBtn,
+  } = useContext(GlobalContext);
 
   const showDate =
     day.format('D') === '1' ? day.format('M[月]D[日]') : day.format('D');
@@ -76,6 +80,7 @@ function Day({ day, rowIdx }) {
       onClick={() => {
         setBigCalendarSlcDay(day);
         setShowEventModal(true);
+        setFromCreateBtn(false);
       }}
     >
       <Header>
