@@ -1,27 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { signInWithPopup, GoogleAuthProvider } from '@firebase/auth';
 import avatarImg from '../../assets/images/avatar.png';
-import { auth } from '../../../firebase-config';
+import GlobalContext from '../../context/GlobalContext';
 
 const Button = styled.button`
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: #fff;
   position: relative;
-  cursor: pointer;
-  &.prev {
-    margin-right: 5px;
-  }
-  &:hover {
-    background-color: #e8eaed;
-  }
 `;
 
 const Img = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,19 +22,10 @@ const Img = styled.img`
 `;
 
 function Avatar() {
-  const signInWithGoggle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { user } = useContext(GlobalContext);
   return (
-    <Button onClick={signInWithGoggle}>
-      <Img src={avatarImg} />
+    <Button>
+      <Img src={user.photoURL || avatarImg} />{' '}
     </Button>
   );
 }

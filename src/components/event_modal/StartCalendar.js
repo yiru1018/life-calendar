@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { v4 } from 'uuid';
@@ -10,6 +10,14 @@ import GlobalContext from '../../context/GlobalContext';
 const Div = styled.div`
   color: #3c4043;
   padding: 0px 14px 16px 19px;
+  width: 283px;
+  height: 244px;
+  background-color: #fff;
+  position: absolute;
+  z-index: 5;
+  top: 50px;
+  left: 0px;
+  box-shadow: 0px 5px 8px 2px #cccecf;
 `;
 
 const Header = styled.header`
@@ -87,7 +95,21 @@ const Day = styled.p`
   }
 `;
 
-function SmallCalender() {
+function StartCalendar({ showStartCalendar, setShowStartCalendar }) {
+  // click outside of calendar to close it
+  const ref = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setShowStartCalendar(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [showStartCalendar]);
+
   const week = ['日', '一', '二', '三', '四', '五', '六'];
 
   const [currentMonth, setCurrentMonth] = useState(getMonth(undefined, 6));
@@ -98,7 +120,7 @@ function SmallCalender() {
     setCurrentMonth(getMonth(currentMonthIdx, 6));
   }, [currentMonthIdx]);
 
-  const { monthIndex, setSmallCalendarMonth, daySelected, setDaySelected } =
+  const { monthIndex, setSmallCalendarMonth, eventStartDay, setEventStartDay } =
     useContext(GlobalContext);
 
   // control small calendar month via Header's month controller
@@ -117,7 +139,8 @@ function SmallCalender() {
     const format = 'D-M-YYYY';
     const nowDay = dayjs().format(format);
     const currDay = day.format(format);
-    const slcDay = daySelected.format(format);
+    const slcDay = eventStartDay.format(format);
+
     const currIdxMonth = dayjs(
       new Date(dayjs().year(), currentMonthIdx)
     ).format('M');
@@ -141,7 +164,7 @@ function SmallCalender() {
   };
 
   return (
-    <Div>
+    <Div ref={ref}>
       <Header>
         <p>
           {dayjs(new Date(dayjs().year(), currentMonthIdx)).format(
@@ -169,7 +192,8 @@ function SmallCalender() {
                 className={getClassName(day)}
                 onClick={() => {
                   getCurrentMonthIdx(day);
-                  setDaySelected(day);
+                  setEventStartDay(day);
+                  setShowStartCalendar(false);
                 }}
               >
                 {day.format('D')}
@@ -182,4 +206,4 @@ function SmallCalender() {
   );
 }
 
-export default SmallCalender;
+export default StartCalendar;

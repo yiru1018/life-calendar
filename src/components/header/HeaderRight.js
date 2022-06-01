@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchEvent from './SearchEvent';
 import Trash from './Trash';
 import Avatar from './Avatar';
-import Dropdownmenu from './Dropdownmenu';
+import SignOut from './SignOut';
 
 const Div = styled.div`
   display: flex;
@@ -16,8 +16,8 @@ function HeaderRight() {
     <Div>
       <SearchEvent />
       <Trash />
-      {/* <Dropdownmenu /> */}
       <Avatar />
+      <SignOut />
     </Div>
   );
 }

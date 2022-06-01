@@ -9,7 +9,6 @@ const Div = styled.div`
   align-items: center;
   width: 100%;
   flex: 0 0 64px;
-  /* height: 48px; */
   padding: 8px;
   border-bottom: 1px solid #e8eaed;
   position: relative;

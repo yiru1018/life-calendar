@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import { v4 } from 'uuid';
 import GlobalContext from '../../context/GlobalContext';
+import Event from '../events/Event';
 
 const Div = styled.div`
-  border: 0.6px solid #e8eaed;
+  border-bottom: 1px solid #e8eaed;
+  border-right: 1px solid #e8eaed;
   font-size: 9px;
   color: #3c4043;
 `;
@@ -32,6 +35,7 @@ const SingleDay = styled.p`
   &:hover {
     background-color: #e8eaed;
   }
+  ${(props) => props.month !== props.bigMonth && 'color:#70757a;'}
   ${(props) =>
     props.currentdate === dayjs().format('D-M-YY') &&
     `
@@ -46,13 +50,17 @@ const SingleDay = styled.p`
     `
         line-height: 20px;
         width: 45px;
-        height: 18px;
+        height: 20px;
         border-radius: 45%;
+        margin-top: 7px;
     `}
-    ${(props) => props.month !== props.bigMonth && 'color:#70757a;'}
 `;
 
-const EventDiv = styled.div``;
+const EventDiv = styled.div`
+  /* height: 22px; */
+  /* background-color: red; */
+  width: 100%;
+`;
 
 function Day({ day, rowIdx }) {
   const {
@@ -60,6 +68,8 @@ function Day({ day, rowIdx }) {
     setBigCalendarSlcDay,
     setShowEventModal,
     setFromCreateBtn,
+    events,
+    user,
   } = useContext(GlobalContext);
 
   const showDate =
@@ -74,6 +84,11 @@ function Day({ day, rowIdx }) {
     Fri: '五',
     Sat: '六',
   };
+  // console.log(new Date(day).toDateString());
+  const userEvent = events.filter((event) => event.user === user.email);
+  // console.log('de', userEvent);
+  // events.map((event) => console.log(event.color));
+  // console.log(events[0]);
 
   return (
     <Div
@@ -95,7 +110,21 @@ function Day({ day, rowIdx }) {
           {showDate}
         </SingleDay>
       </Header>
-      <EventDiv />
+      <EventDiv>
+        {userEvent.map(
+          (event) =>
+            event.start.toDate().toDateString() ===
+              new Date(day).toDateString() && (
+              <Event
+                key={v4()}
+                title={event.event}
+                desc={event.desc}
+                color={event.color}
+                id={event.id}
+              />
+            )
+        )}
+      </EventDiv>
     </Div>
   );
 }

@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCGzDjguFU3eWNhImvSVxvXFXfvQ0d4X1E',
+  apiKey: process.env.apiKey,
   authDomain: 'calendar-b6e58.firebaseapp.com',
   projectId: 'calendar-b6e58',
   storageBucket: 'calendar-b6e58.appspot.com',
