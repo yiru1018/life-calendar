@@ -7,12 +7,13 @@ import GlobalContext from '../../context/GlobalContext';
 import EventModal from '../event_modal/EventModal';
 import { db } from '../../../firebase-config';
 import getEvents from '../../utils/getEvents';
+import EditEvent from '../events/EditEvent';
 
 const Div = styled.div`
   flex: 1 1 auto;
   height: 100%;
   position: relative;
-  border: 1px solid #e8eaed;
+  border-left: 1px solid #e8eaed;
 `;
 
 function MonthTable() {
@@ -32,11 +33,11 @@ function MonthTable() {
   useEffect(() => {
     getEvents(setEvents);
   }, []);
-  console.log(events);
+  // console.log(events);
   const userEvent = events.filter((event) => event.user === user.email);
   // console.log('de', userEvent);
   // console.log('new', new Date(2022, 6, 1));
-  // userEvent.map((event) => console.log(event.start.toDate().getTime()));
+  // userEvent.map((event) => console.log(event.start.toDate().toTimeString()));
 
   return (
     <Div>

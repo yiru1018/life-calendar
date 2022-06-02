@@ -9,6 +9,8 @@ const GlobalContext = createContext({
   setDaySelected: () => {},
   showEventModal: false,
   setShowEventModal: () => {},
+  showEditEvent: false,
+  setShowEditEvent: () => {},
   bigCalendarSlcDay: null,
   setBigCalendarSlcDay: () => {},
   fromCreateBtn: null,

@@ -9,6 +9,7 @@ function ContextWrapper(props) {
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
   const [daySelected, setDaySelected] = useState(dayjs());
   const [showEventModal, setShowEventModal] = useState(false);
+  const [showEditEvent, setShowEditEvent] = useState(false);
   const [bigCalendarSlcDay, setBigCalendarSlcDay] = useState(dayjs());
   const [fromCreateBtn, setFromCreateBtn] = useState(false);
   const [eventStartDay, setEventStartDay] = useState(dayjs());
@@ -52,6 +53,8 @@ function ContextWrapper(props) {
         setDaySelected,
         showEventModal,
         setShowEventModal,
+        showEditEvent,
+        setShowEditEvent,
         bigCalendarSlcDay,
         setBigCalendarSlcDay,
         fromCreateBtn,

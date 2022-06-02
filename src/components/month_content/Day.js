@@ -2,14 +2,21 @@ import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { v4 } from 'uuid';
+import { useDrop } from 'react-dnd';
+import { updateDoc, doc } from 'firebase/firestore';
 import GlobalContext from '../../context/GlobalContext';
 import Event from '../events/Event';
+import { db } from '../../../firebase-config';
+import getEvents from '../../utils/getEvents';
 
 const Div = styled.div`
   border-bottom: 1px solid #e8eaed;
   border-right: 1px solid #e8eaed;
   font-size: 9px;
   color: #3c4043;
+  display: inline-block;
+  min-height: 0;
+  ${(props) => props.isOver && `background-color:#f3e3fa`}
 `;
 
 const Header = styled.header`
@@ -57,8 +64,8 @@ const SingleDay = styled.p`
 `;
 
 const EventDiv = styled.div`
-  /* height: 22px; */
-  /* background-color: red; */
+  /* overflow: hidden; */
+  min-height: 22px;
   width: 100%;
 `;
 
@@ -69,6 +76,7 @@ function Day({ day, rowIdx }) {
     setShowEventModal,
     setFromCreateBtn,
     events,
+    setEvents,
     user,
   } = useContext(GlobalContext);
 
@@ -89,9 +97,43 @@ function Day({ day, rowIdx }) {
   // console.log('de', userEvent);
   // events.map((event) => console.log(event.color));
   // console.log(events[0]);
+  const updateEvent = async (id, days, start, end) => {
+    const eventDoc = doc(db, 'event', id);
+    const newStart = new Date(
+      new Date(day).setHours(
+        start.toDate().getHours(),
+        start.toDate().getMinutes()
+      )
+    );
+    const newEndDate = new Date(day).setDate(new Date(day).getDate() + days);
+    const newEnd = new Date(
+      new Date(newEndDate).setHours(
+        end.toDate().getHours(),
+        end.toDate().getMinutes()
+      )
+    );
+    const newFields = { start: newStart, end: newEnd };
+
+    await updateDoc(eventDoc, newFields);
+  };
+
+  const moveEventToDay = (id, days, start, end) => {
+    updateEvent(id, days, start, end);
+    getEvents(setEvents);
+  };
+
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: 'div',
+    drop: (item) => moveEventToDay(item.id, item.days, item.start, item.end),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
 
   return (
     <Div
+      ref={drop}
+      isOver={isOver}
       onClick={() => {
         setBigCalendarSlcDay(day);
         setShowEventModal(true);
@@ -121,6 +163,9 @@ function Day({ day, rowIdx }) {
                 desc={event.desc}
                 color={event.color}
                 id={event.id}
+                days={event.days}
+                start={event.start}
+                end={event.end}
               />
             )
         )}

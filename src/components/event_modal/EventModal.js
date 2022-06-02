@@ -9,12 +9,11 @@ import Color from './Color';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
 import GlobalContext from '../../context/GlobalContext';
 import { db } from '../../../firebase-config';
-import Repeat from './Repeat';
 import getEvents from '../../utils/getEvents';
 
 const Div = styled.div`
   width: 448px;
-  height: ${(props) => (props.allDay ? '470px' : '520px')};
+  height: ${(props) => (props.allDay ? '450px' : '500px')};
   box-shadow: 0px 5px 8px 2px #cccecf;
   border-radius: 5px;
   display: flex;
@@ -142,6 +141,12 @@ function EventModal() {
       user: user.email,
       event: title || '無標題',
       isAllDay: allDay,
+      // startDate: allDayStart,
+      // endDate: allDayEnd,
+      days: parseInt(
+        Math.abs(allDayStart - allDayEnd) / 1000 / 60 / 60 / 24,
+        10
+      ),
       start: allDay ? allDayStart : startWithTime,
       end: allDay ? allDayEnd : endWithTime,
       desc: description,
@@ -175,7 +180,6 @@ function EventModal() {
           eventEndTime={eventEndTime}
           setEventEndTime={setEventEndTime}
         />
-        <Repeat />
         <Notification setNotifyTime={setNotifyTime} />
         <Description
           description={description}
