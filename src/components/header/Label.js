@@ -7,6 +7,10 @@ const Div = styled.div`
   align-items: center;
   font-size: 22px;
   color: #5f6368;
+  width: 100px;
+  @media screen and (max-width: 515px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.img`
@@ -18,7 +22,7 @@ function Label() {
   return (
     <Div>
       <Logo src={labelImg} />
-      日曆
+      月曆
     </Div>
   );
 }

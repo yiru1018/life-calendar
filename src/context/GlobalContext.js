@@ -11,6 +11,8 @@ const GlobalContext = createContext({
   setShowEventModal: () => {},
   showEditEvent: false,
   setShowEditEvent: () => {},
+  showSearchEvent: false,
+  setShowSearchEvent: () => {},
   bigCalendarSlcDay: null,
   setBigCalendarSlcDay: () => {},
   fromCreateBtn: null,
@@ -21,8 +23,14 @@ const GlobalContext = createContext({
   setEventEndDay: () => {},
   events: null,
   setEvents: () => {},
+  reNewEvents: true,
+  setReNewEvents: () => {},
   user: null,
   setUser: () => {},
+  currentDoc: null,
+  setCurrentDoc: () => {},
+  showUpdateModal: false,
+  setShowUpdateModal: () => {},
 });
 
 export default GlobalContext;

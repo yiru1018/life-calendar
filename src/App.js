@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
-import EventModal from './components/event_modal/EventModal';
 import LoginPage from './components/LoginPage';
+import Notify from './components/Notify/Notify';
+import LandingPage from './components/LandingPage';
 
 const Div = styled.div`
   height: 100%;
@@ -12,11 +13,12 @@ const Div = styled.div`
 function App() {
   return (
     <Div>
+      <Notify />
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
           <Route path="/Login" element={<LoginPage />} />
-          <Route path="/popup" element={<EventModal />} />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </Router>
     </Div>

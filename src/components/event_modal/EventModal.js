@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { collection, addDoc } from 'firebase/firestore';
 import closeImg from '../../assets/images/close.png';
@@ -8,8 +8,7 @@ import Description from './Description';
 import Color from './Color';
 import GlobalStyle from '../../assets/styles/GlobalStyle';
 import GlobalContext from '../../context/GlobalContext';
-import { db } from '../../../firebase-config';
-import getEvents from '../../utils/getEvents';
+import { db, requestForToken } from '../../../firebase-config';
 
 const Div = styled.div`
   width: 448px;
@@ -24,6 +23,12 @@ const Div = styled.div`
   z-index: 1;
   top: 10%;
   left: 20%;
+  @media screen and (max-width: 600px) {
+    left: 10%;
+  }
+  @media screen and (max-width: 550px) {
+    display: none;
+  }
 `;
 
 const ExceptTitle = styled.div`
@@ -96,33 +101,43 @@ const SaveButton = styled.button`
 `;
 
 function EventModal() {
-  const { setShowEventModal, eventStartDay, eventEndDay, user, setEvents } =
-    useContext(GlobalContext);
+  const {
+    setShowEventModal,
+    eventStartDay,
+    eventEndDay,
+    user,
+    setReNewEvents,
+  } = useContext(GlobalContext);
 
   const [title, setTitle] = useState('');
   const [eventStartTime, setEventStartTime] = useState(new Date(eventStartDay));
   const [eventEndTime, setEventEndTime] = useState(new Date(eventEndDay));
-  const [notifyTime, setNotifyTime] = useState('');
+  const [notify, setNotify] = useState({ number: '1', timeUnit: '分鐘' });
+  const [createNotify, setCreateNotify] = useState(false);
   const [description, setDescription] = useState('');
   const [divColor, setDivColor] = useState('rgb(121, 134, 203)');
   const [allDay, setAllDay] = useState(true);
+  const [token, setToken] = useState('');
 
-  const ref = useRef(null);
+  // get firebase cloud message token
+  useEffect(() => {
+    requestForToken(setToken);
+  }, []);
 
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     if (ref.current && !ref.current.contains(e.target)) {
-  //       setShowEventModal(false);
-  //     }
-  //   };
-  //   document.addEventListener('click', handleClickOutside, true);
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside, true);
-  //   };
-  // }, [showEventModal]);
+  const getNotifyTime = (n, unit, start) => {
+    const number = Number(n);
+    let result;
+    if (unit === '分鐘') result = number * 60 * 1000;
+    if (unit === '小時') result = number * 60 * 60 * 1000;
+    if (unit === '天') result = number * 24 * 60 ** 60 * 1000;
+    if (unit === '週') result = number * 7 * 24 * 60 * 60 * 1000;
 
-  const eventCollectionRef = collection(db, 'event');
+    const notifyTime = new Date(start.getTime() - result);
+    return notifyTime;
+  };
+
   const createEvent = async () => {
+    const eventCollectionRef = collection(db, 'event');
     const allDayStart = new Date(eventStartDay.format('YYYY,M,D'));
     const allDayEnd = new Date(eventEndDay.format('YYYY,M,D'));
     const startWithTime = new Date(
@@ -137,28 +152,39 @@ function EventModal() {
         eventEndTime.getMinutes()
       )
     );
+
     await addDoc(eventCollectionRef, {
       user: user.email,
       event: title || '無標題',
       isAllDay: allDay,
-      // startDate: allDayStart,
-      // endDate: allDayEnd,
       days: parseInt(
         Math.abs(allDayStart - allDayEnd) / 1000 / 60 / 60 / 24,
         10
       ),
       start: allDay ? allDayStart : startWithTime,
       end: allDay ? allDayEnd : endWithTime,
+      createNotify,
+      notify: createNotify ? `${notify.number} ${notify.timeUnit} ` : '',
+      notifyTime: createNotify
+        ? getNotifyTime(
+            notify.number,
+            notify.timeUnit,
+            allDay ? allDayStart : startWithTime
+          )
+        : '',
+      notifySent: false,
+      token: createNotify ? token : '',
       desc: description,
       color: divColor,
     });
+    setReNewEvents(true);
   };
 
   return (
-    <Div allDay={allDay} ref={ref}>
+    <Div allDay={allDay}>
       <GlobalStyle />
-      <ClosingTag onClick={() => setShowEventModal(false)}>
-        <Img src={closeImg} />
+      <ClosingTag>
+        <Img src={closeImg} onClick={() => setShowEventModal(false)} />
       </ClosingTag>
       <TitleInputDiv>
         <TitleInput
@@ -180,7 +206,12 @@ function EventModal() {
           eventEndTime={eventEndTime}
           setEventEndTime={setEventEndTime}
         />
-        <Notification setNotifyTime={setNotifyTime} />
+        <Notification
+          notify={notify}
+          setNotify={setNotify}
+          createNotify={createNotify}
+          setCreateNotify={setCreateNotify}
+        />
         <Description
           description={description}
           setDescription={setDescription}
@@ -190,7 +221,6 @@ function EventModal() {
           <SaveButton
             onClick={() => {
               createEvent();
-              getEvents(setEvents);
               setShowEventModal(false);
             }}
           >

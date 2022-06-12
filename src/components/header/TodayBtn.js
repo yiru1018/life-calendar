@@ -5,6 +5,13 @@ import GlobalContext from '../../context/GlobalContext';
 
 const Div = styled.div`
   margin-right: 10px;
+  margin-left: 50px;
+  @media screen and (max-width: 621px) {
+    margin-left: 0px;
+  }
+  @media screen and (max-width: 515px) {
+    display: none;
+  }
 `;
 
 const Today = styled.button`

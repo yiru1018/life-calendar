@@ -7,6 +7,9 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   margin-left: 70px;
+  @media screen and (max-width: 659px) {
+    margin-left: 1em;
+  }
 `;
 
 function CalendarHeader() {

@@ -18,8 +18,8 @@ function Month({ month }) {
       <Div>
         {month.map((row, i) => (
           <React.Fragment key={v4()}>
-            {row.map((day) => (
-              <Day day={day} key={v4()} rowIdx={i} />
+            {row.map((day, j) => (
+              <Day day={day} key={v4()} rowIdx={i} columnIdx={j} />
             ))}
           </React.Fragment>
         ))}

@@ -2,6 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import searchImg from '../../assets/images/search.png';
 
+const Div = styled.div`
+  display: flex;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
 const Button = styled.button`
   width: 36px;
   height: 36px;
@@ -23,11 +30,13 @@ const Img = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-function SearchEvent() {
+function SearchEvent({ setSearching }) {
   return (
-    <Button>
-      <Img src={searchImg} />
-    </Button>
+    <Div>
+      <Button onClick={() => setSearching(true)}>
+        <Img src={searchImg} />
+      </Button>
+    </Div>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import downImg from '../../assets/images/down.png';
 import bellImg from '../../assets/images/bell.png';
@@ -56,8 +56,7 @@ const CreateAlertDiv = styled.div`
 
 const InputNumber = styled.input.attrs({
   type: 'number',
-  min: '0',
-  max: '28',
+  min: '1',
   placeholder: '1',
 })`
   background-color: #e8eaed;
@@ -65,6 +64,9 @@ const InputNumber = styled.input.attrs({
   font-size: 14px;
   height: 25px;
   width: 48px;
+  &:out-of-range {
+    background-color: #fce8e6;
+  }
 `;
 
 const TimeUnitSelector = styled.select`
@@ -88,27 +90,40 @@ const TimeUnitSelector = styled.select`
   }
 `;
 
-function Notification() {
-  const [createAlert, setCreateAlert] = useState(false);
+function Notification({ notify, setNotify, createNotify, setCreateNotify }) {
+  const maxNumber = {
+    minute: '120',
+    hour: '24',
+    day: '28',
+    week: '4',
+  };
+
   return (
     <Div>
       <BellImg src={bellImg} />
-      {!createAlert && (
-        <CreateAlertBtn onClick={() => setCreateAlert(true)}>
+      {!createNotify && (
+        <CreateAlertBtn onClick={() => setCreateNotify(true)}>
           新增通知
         </CreateAlertBtn>
       )}
-      {createAlert && (
+      {createNotify && (
         <CreateAlertDiv>
-          <InputNumber />
-          <TimeUnitSelector>
-            <option value="minute">分鐘</option>
-            <option value="hour">小時</option>
-            <option value="day">天</option>
-            <option value="week">週</option>
+          <InputNumber
+            max={maxNumber[notify.timeUnit]}
+            value={notify.number}
+            onChange={(e) => setNotify({ ...notify, number: e.target.value })}
+          />
+          <TimeUnitSelector
+            value={notify.timeUnit}
+            onChange={(e) => setNotify({ ...notify, timeUnit: e.target.value })}
+          >
+            <option value="分鐘">分鐘</option>
+            <option value="小時">小時</option>
+            <option value="天">天</option>
+            <option value="週">週</option>
           </TimeUnitSelector>
           <p>前</p>
-          <CloseImg src={closeImg} onClick={() => setCreateAlert(false)} />
+          <CloseImg src={closeImg} onClick={() => setCreateNotify(false)} />
         </CreateAlertDiv>
       )}
     </Div>

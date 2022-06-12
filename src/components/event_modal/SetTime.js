@@ -8,7 +8,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import clockImg from '../../assets/images/clock.png';
 import GlobalContext from '../../context/GlobalContext';
-import downImg from '../../assets/images/down.png';
 import SwitchBtn from './SwitchBtn';
 import StartCalendar from './StartCalendar';
 import EndCalendar from './EndCalendar';
@@ -77,34 +76,6 @@ const DateInput = styled.input`
   cursor: pointer;
   &:focus ~ ${Underline} {
     transform: scale(1);
-  }
-`;
-
-const NoRepeat = styled.div`
-  font-size: 12px;
-  color: #70757a;
-  margin-left: 5px;
-`;
-
-const RepeatSelector = styled.select`
-  &:hover {
-    background-color: #e8eaed;
-  }
-  width: 74px;
-  height: 36px;
-  background-image: url(${downImg});
-  background-repeat: no-repeat;
-  background-position: right 10px top 50%, 0 0;
-  background-size: 6px 4px, 100%;
-  color: #70757a;
-  font-size: 14px;
-  -moz-appearance: none; /* Firefox */
-  -webkit-appearance: none; /* Safari and Chrome */
-  appearance: none;
-  cursor: pointer;
-  padding-left: 10px;
-  option {
-    background: #fff;
   }
 `;
 
@@ -194,7 +165,7 @@ function SetTime({
             type="text"
             name="endDate"
             value={showDay(eventEndDay)}
-            onChange={(newDate) => setStartDateInput(newDate)} // fix it!!!!!!!!!!!!!!!!!!!!!!!
+            onChange={(newDate) => setStartDateInput(newDate)}
             onFocus={handleFocus}
             onClick={() => {
               setShowStartCalendar(false);
@@ -209,9 +180,6 @@ function SetTime({
             />
           )}
         </DateBackground>
-        {/* <Date className="start">{showDay()}</Date>
-            &nbsp;–&nbsp;
-            <Date className="end">{showDay()}</Date> */}
       </InnerDiv>
       {!allDay && (
         <InnerDiv className="forTime">

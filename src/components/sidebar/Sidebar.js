@@ -5,6 +5,10 @@ import SmallCalender from './SmallCalender';
 
 const Div = styled.div`
   flex: 0 0 256px;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 function Sidebar() {

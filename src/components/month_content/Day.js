@@ -7,7 +7,6 @@ import { updateDoc, doc } from 'firebase/firestore';
 import GlobalContext from '../../context/GlobalContext';
 import Event from '../events/Event';
 import { db } from '../../../firebase-config';
-import getEvents from '../../utils/getEvents';
 
 const Div = styled.div`
   border-bottom: 1px solid #e8eaed;
@@ -38,10 +37,10 @@ const SingleDay = styled.p`
   height: 24px;
   border-radius: 50%;
   margin: 3px 0px 2px 0px;
-  cursor: pointer;
+  /* cursor: pointer;
   &:hover {
     background-color: #e8eaed;
-  }
+  } */
   ${(props) => props.month !== props.bigMonth && 'color:#70757a;'}
   ${(props) =>
     props.currentdate === dayjs().format('D-M-YY') &&
@@ -64,12 +63,11 @@ const SingleDay = styled.p`
 `;
 
 const EventDiv = styled.div`
-  /* overflow: hidden; */
   min-height: 22px;
   width: 100%;
 `;
 
-function Day({ day, rowIdx }) {
+function Day({ day, rowIdx, columnIdx }) {
   const {
     monthIndex,
     setBigCalendarSlcDay,
@@ -77,6 +75,7 @@ function Day({ day, rowIdx }) {
     setFromCreateBtn,
     events,
     setEvents,
+    setReNewEvents,
     user,
   } = useContext(GlobalContext);
 
@@ -92,11 +91,8 @@ function Day({ day, rowIdx }) {
     Fri: '五',
     Sat: '六',
   };
-  // console.log(new Date(day).toDateString());
+
   const userEvent = events.filter((event) => event.user === user.email);
-  // console.log('de', userEvent);
-  // events.map((event) => console.log(event.color));
-  // console.log(events[0]);
   const updateEvent = async (id, days, start, end) => {
     const eventDoc = doc(db, 'event', id);
     const newStart = new Date(
@@ -115,11 +111,11 @@ function Day({ day, rowIdx }) {
     const newFields = { start: newStart, end: newEnd };
 
     await updateDoc(eventDoc, newFields);
+    setReNewEvents(true);
   };
 
   const moveEventToDay = (id, days, start, end) => {
     updateEvent(id, days, start, end);
-    getEvents(setEvents);
   };
 
   const [{ isOver }, drop] = useDrop(() => ({
@@ -153,22 +149,29 @@ function Day({ day, rowIdx }) {
         </SingleDay>
       </Header>
       <EventDiv>
-        {userEvent.map(
-          (event) =>
-            event.start.toDate().toDateString() ===
-              new Date(day).toDateString() && (
-              <Event
-                key={v4()}
-                title={event.event}
-                desc={event.desc}
-                color={event.color}
-                id={event.id}
-                days={event.days}
-                start={event.start}
-                end={event.end}
-              />
-            )
-        )}
+        {events
+          .filter((event) => event.user === user.email)
+          .map(
+            (event) =>
+              event.start.toDate().toDateString() ===
+                new Date(day).toDateString() && (
+                <Event
+                  key={v4()}
+                  title={event.event}
+                  desc={event.desc}
+                  color={event.color}
+                  id={event.id}
+                  days={event.days}
+                  start={event.start}
+                  end={event.end}
+                  notify={event.notify}
+                  createNotify={event.createNotify}
+                  allDay={event.isAllDay}
+                  rowIdx={rowIdx}
+                  columnIdx={columnIdx}
+                />
+              )
+          )}
       </EventDiv>
     </Div>
   );

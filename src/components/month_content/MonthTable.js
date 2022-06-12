@@ -7,7 +7,7 @@ import GlobalContext from '../../context/GlobalContext';
 import EventModal from '../event_modal/EventModal';
 import { db } from '../../../firebase-config';
 import getEvents from '../../utils/getEvents';
-import EditEvent from '../events/EditEvent';
+import UpdateModal from '../events/UpdateModal';
 
 const Div = styled.div`
   flex: 1 1 auto;
@@ -18,8 +18,16 @@ const Div = styled.div`
 
 function MonthTable() {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModal, events, setEvents, user } =
-    useContext(GlobalContext);
+  const {
+    monthIndex,
+    showEventModal,
+    events,
+    setEvents,
+    user,
+    showUpdateModal,
+    reNewEvents,
+    setReNewEvents,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
@@ -31,8 +39,10 @@ function MonthTable() {
   //   setEvents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   // };
   useEffect(() => {
-    getEvents(setEvents);
-  }, []);
+    if (reNewEvents) getEvents(setEvents);
+    setReNewEvents(false);
+    console.log('redender');
+  }, [reNewEvents]);
   // console.log(events);
   const userEvent = events.filter((event) => event.user === user.email);
   // console.log('de', userEvent);
@@ -42,6 +52,7 @@ function MonthTable() {
   return (
     <Div>
       {showEventModal && <EventModal />}
+      {showUpdateModal && <UpdateModal />}
       <Month month={currentMonth} />
     </Div>
   );

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import avatarImg from '../../assets/images/avatar.png';
 import GlobalContext from '../../context/GlobalContext';
@@ -9,6 +9,7 @@ const Button = styled.button`
   border-radius: 50%;
   background-color: #fff;
   position: relative;
+  margin: 0px 5px 0px 5px;
 `;
 
 const Img = styled.img`
@@ -20,12 +21,17 @@ const Img = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-
 function Avatar() {
   const { user } = useContext(GlobalContext);
+  const [photo, setPhoto] = useState('');
+  // console.log(user);
+  useEffect(() => {
+    if (user) setPhoto(user.photoURL);
+  }, [user]);
+
   return (
     <Button>
-      <Img src={user.photoURL || avatarImg} />{' '}
+      <Img src={!photo ? avatarImg : photo} />
     </Button>
   );
 }

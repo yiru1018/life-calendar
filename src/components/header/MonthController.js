@@ -25,6 +25,9 @@ const Button = styled.button`
   &:hover {
     background-color: #e8eaed;
   }
+  @media screen and (max-width: 515px) {
+    display: none;
+  }
 `;
 
 const Img = styled.img`

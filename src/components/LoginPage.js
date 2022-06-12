@@ -6,8 +6,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 import GlobalStyle from '../assets/styles/GlobalStyle';
 import LogoImg from '../assets/images/icons8-albanian-lek-50.png';
 import { auth } from '../../firebase-config';
@@ -61,6 +63,12 @@ const Input = styled.input`
   background-color: transparent;
   color: #fff;
   font-size: 20px;
+  &::placeholder {
+    color: #fff;
+  }
+  &.forget {
+    margin-top: 20px;
+  }
 `;
 
 const Button = styled.button`
@@ -97,6 +105,10 @@ const Button = styled.button`
       opacity: 1;
     }
   }
+  &.message {
+    margin-top: 50px;
+    width: 50px;
+  }
 `;
 
 const SingupDiv = styled.div`
@@ -106,18 +118,53 @@ const SingupDiv = styled.div`
   cursor: pointer;
 `;
 
+const MessageBox = styled.div`
+  background-color: #9fa4c4;
+  background-image: linear-gradient(315deg, #9fa4c4 0%, #9e768f 74%);
+  width: 350px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  padding: 10px;
+  p {
+    color: #fff;
+    height: 30px;
+    padding: 5px;
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
 function LoginPage() {
   const [turnToSingnup, setTurnToSingnup] = useState(false);
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState('test123@gmail.com');
+  const [loginPassword, setLoginPassword] = useState('123123');
+  const [showMessageBox, setShowMessageBox] = useState(false);
+  const [forget, setForget] = useState(false);
+  const [forgetEmail, setForgetEmail] = useState('');
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
-  // const [user, setUser] = useState({});
 
   onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) navigate('/');
+    if (currentUser) navigate('/HomePage');
   });
   // console.log(user.email);
 
@@ -138,11 +185,13 @@ function LoginPage() {
 
   const login = () => {
     signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-      .then((res) => {
-        // navigate('/');
+      .then(() => {
+        navigate('/HomePage');
         // console.log(res);
       })
       .catch((error) => {
+        setShowMessageBox(true);
+        setMessage('信箱或密碼錯誤');
         console.log(error.message);
       })
       .finally(() => {
@@ -155,18 +204,68 @@ function LoginPage() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
-        navigate('/');
+        navigate('/HomePage');
         // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        setMessage('信箱或密碼有誤 請重新輸入');
+        setShowMessageBox(true);
+        console.log(err.code);
       });
+  };
+
+  const forgetPassword = () => {
+    sendPasswordResetEmail(auth, forgetEmail)
+      .then(() => {
+        setMessage('已發送信件至信箱，請按照信件說明重設密碼');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/invalid-email') setMessage('此為無效信箱');
+        console.log(error.code);
+      });
+  };
+
+  const handleMessageBoxBtnClick = () => {
+    if (forget) {
+      forgetPassword();
+      setForget(false);
+    } else {
+      setShowMessageBox(false);
+      setMessage('');
+      setForgetEmail('');
+    }
   };
 
   return (
     <>
       <GlobalStyle />
       <Background>
+        {showMessageBox && (
+          <MessageBox>
+            <div>
+              <CloseIcon
+                onClick={() => setShowMessageBox(false)}
+                sx={{ color: '#ccc', cursor: 'pointer' }}
+              />
+            </div>
+            {forget && (
+              <Input
+                type="text"
+                placeholder="請輸入註冊信箱"
+                id="forget"
+                className="forget"
+                value={forgetEmail}
+                onChange={(e) => {
+                  setForgetEmail(e.target.value);
+                }}
+              />
+            )}
+            {message && <p className="sentComfirm">{message}</p>}
+            <Button className="message" onClick={handleMessageBoxBtnClick}>
+              <p>確認</p>
+            </Button>
+          </MessageBox>
+        )}
         <Logo src={LogoImg} />
         <EditDiv>
           <InputDiv>
@@ -191,7 +290,13 @@ function LoginPage() {
               }}
             />
             {!turnToSingnup && (
-              <Button className="forgot">
+              <Button
+                className="forgot"
+                onClick={() => {
+                  setShowMessageBox(true);
+                  setForget(true);
+                }}
+              >
                 <p>?</p>
               </Button>
             )}

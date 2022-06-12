@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchEvent from './SearchEvent';
-import Trash from './Trash';
 import Avatar from './Avatar';
 import SignOut from './SignOut';
 
@@ -11,11 +10,10 @@ const Div = styled.div`
   margin-left: auto;
 `;
 
-function HeaderRight() {
+function HeaderRight({ searching, setSearching }) {
   return (
     <Div>
-      <SearchEvent />
-      <Trash />
+      {!searching && <SearchEvent setSearching={setSearching} />}
       <Avatar />
       <SignOut />
     </Div>

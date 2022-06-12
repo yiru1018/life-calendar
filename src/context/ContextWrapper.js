@@ -10,12 +10,24 @@ function ContextWrapper(props) {
   const [daySelected, setDaySelected] = useState(dayjs());
   const [showEventModal, setShowEventModal] = useState(false);
   const [showEditEvent, setShowEditEvent] = useState(false);
+  const [showSearchEvent, setShowSearchEvent] = useState(false);
   const [bigCalendarSlcDay, setBigCalendarSlcDay] = useState(dayjs());
   const [fromCreateBtn, setFromCreateBtn] = useState(false);
   const [eventStartDay, setEventStartDay] = useState(dayjs());
   const [eventEndDay, setEventEndDay] = useState(dayjs());
   const [events, setEvents] = useState([]);
-  const [user, setUser] = useState({});
+  const [reNewEvents, setReNewEvents] = useState(true);
+  const [user, setUser] = useState(null);
+  const [currentDoc, setCurrentDoc] = useState({
+    title: '',
+    allDay: '',
+    start: '',
+    end: '',
+    desc: '',
+    color: '',
+    id: '',
+  });
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   // click date on small calendar change big calendar to that month
   useEffect(() => {
@@ -55,6 +67,8 @@ function ContextWrapper(props) {
         setShowEventModal,
         showEditEvent,
         setShowEditEvent,
+        showSearchEvent,
+        setShowSearchEvent,
         bigCalendarSlcDay,
         setBigCalendarSlcDay,
         fromCreateBtn,
@@ -65,8 +79,14 @@ function ContextWrapper(props) {
         setEventEndDay,
         events,
         setEvents,
+        reNewEvents,
+        setReNewEvents,
         user,
         setUser,
+        currentDoc,
+        setCurrentDoc,
+        showUpdateModal,
+        setShowUpdateModal,
       }}
     >
       {props.children}
