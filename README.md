@@ -11,20 +11,33 @@ test password : 123123
 - [Features](#Features)
 - [Contact](#Contact)
 
-##Skill Structure
+## Skill Structure
+
 ![Imgur](https://imgur.com/sf4nESg.png)
-##Features
-###Create, edit, delete event
+
+## Features
+
+### Create, edit, delete event
+
 ![Imgur](https://imgur.com/AdtO2Uf.png)
-###Show details
+
+### Show details
+
 ![Imgur](https://imgur.com/5a5ClUv.png)
-###Drag and drop
+
+### Drag and drop
+
 ![Imgur](https://imgur.com/KgPckau.gif)
-###Notification
+
+### Notification
+
 ![Imgur](https://imgur.com/kq3k5Uj.png)
-###Search event
+
+### Search event
+
 ![Imgur](https://imgur.com/M0yAuJO.gif)
 
-##Contact
-YI RU SHI
+## Contact
+
+YI RU SHI<br/>
 E-mail : debere11@gmail.com
