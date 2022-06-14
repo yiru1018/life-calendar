@@ -2,8 +2,8 @@
 
 This project is a Calendar App based on Google Calendar. Help you to organize your daily life.
 
-[Live Demo](https://calendar-b6e58.web.app)
-test account : test123@gmail.com
+[Live Demo](https://calendar-b6e58.web.app)<br/>
+test account : test123@gmail.com<br/>
 test password : 123123
 
 ## Catalog
